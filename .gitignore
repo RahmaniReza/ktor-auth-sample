@@ -1,0 +1,23 @@
+# Build outputs & cache
+.gradle/
+**/build/
+build/
+bin/
+out/
+
+# IntelliJ IDEA project files
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+.idea_modules/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Secrets & Environment variables (keep local configs safe)
+*.env
+application-local.yaml
+application-local.conf

@@ -13,6 +13,7 @@ application {
 kotlin {
     jvmToolchain(21)
 }
+
 dependencies {
     // --- Serialization & Formatting ---
     implementation(ktorLibs.serialization.kotlinx.json)
@@ -39,6 +40,7 @@ dependencies {
     implementation(libs.exposed.jdbc)
     implementation(libs.postgresql)
     implementation(libs.hikaricp)
+    implementation(libs.flyway)
 
     // --- Testing ---
     testImplementation(kotlin("test"))

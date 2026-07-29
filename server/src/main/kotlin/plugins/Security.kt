@@ -7,9 +7,10 @@ import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
 import io.ktor.server.response.*
+import org.koin.ktor.ext.inject
 import java.util.Date
 
-class JwtService(val environment: ApplicationEnvironment) {
+class JwtService(environment: ApplicationEnvironment) {
     val secret = environment.config.property("jwt.secret").getString()
     val issuer = environment.config.property("jwt.issuer").getString()
     val audience = environment.config.property("jwt.audience").getString()
@@ -27,7 +28,7 @@ class JwtService(val environment: ApplicationEnvironment) {
 }
 
 fun Application.configureSecurity() {
-    val jwtService = JwtService(environment)
+    val jwtService: JwtService by inject()
 
     install(Authentication) {
         jwt("auth-jwt") {

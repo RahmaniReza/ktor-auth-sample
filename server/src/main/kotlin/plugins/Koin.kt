@@ -9,6 +9,7 @@ import org.koin.ktor.plugin.Koin
 
 val appModule = module {
     single<UserRepository> { UserRepositoryImpl() }
+    single { JwtService(get()) }
 }
 
 fun Application.configureKoin() {

@@ -3,6 +3,7 @@ package com.reza.plugins
 import com.reza.data.repository.UserRepositoryImpl
 import com.reza.domain.repository.UserRepository
 import io.ktor.server.application.Application
+import io.ktor.server.application.ApplicationEnvironment
 import io.ktor.server.application.install
 import org.koin.dsl.module
 import org.koin.ktor.plugin.Koin
@@ -14,6 +15,8 @@ val appModule = module {
 
 fun Application.configureKoin() {
     install(Koin) {
-        modules(appModule)
+        modules(module {
+            single<ApplicationEnvironment> { this@configureKoin.environment }
+        }, appModule)
     }
 }

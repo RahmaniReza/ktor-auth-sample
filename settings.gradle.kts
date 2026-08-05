@@ -22,3 +22,4 @@ rootProject.name = "ktor-auth-sample"
 
 include(":client")
 include(":server")
+include(":shared")

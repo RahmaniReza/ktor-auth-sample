@@ -15,6 +15,8 @@ kotlin {
 }
 
 dependencies {
+    implementation(project(":shared"))
+
     // --- Serialization & Formatting ---
     implementation(ktorLibs.serialization.kotlinx.json)
 

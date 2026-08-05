@@ -1,7 +1,5 @@
 package com.reza.routes
 
-import com.reza.domain.model.AuthRequest
-import com.reza.domain.model.AuthResponse
 import com.reza.domain.repository.UserRepository
 import com.reza.plugins.JwtService
 import io.ktor.http.*
@@ -10,6 +8,8 @@ import io.ktor.server.auth.jwt.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import model.AuthRequest
+import model.AuthResponse
 import org.koin.ktor.ext.inject
 
 fun Route.authRoutes() {
@@ -22,7 +22,7 @@ fun Route.authRoutes() {
 
             // Note: Use BCrypt or Argon2 to hash passwords in production
             val createdUser = userRepository.createUser(request.email, request.password)
-            val userId = createdUser?.id
+            val userId = createdUser?.userId
 
             if (createdUser != null && userId != null) {
                 val token = jwtService.generateToken(userId, createdUser.email)
@@ -41,7 +41,7 @@ fun Route.authRoutes() {
                 return@post
             }
 
-            val userId = user.id ?: run {
+            val userId = user.userId ?: run {
                 call.respond(HttpStatusCode.InternalServerError, "User ID missing")
                 return@post
             }

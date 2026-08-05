@@ -1,8 +1,9 @@
 package com.reza.domain.repository
 
-import com.reza.domain.model.User
+import model.UserProfileResponse
+
 
 interface UserRepository {
-    suspend fun createUser(email: String, passwordHash: String): User?
-    suspend fun findByEmail(email: String): User?
+    suspend fun createUser(email: String, passwordHash: String): UserProfileResponse?
+    suspend fun findByEmail(email: String): UserProfileResponse?
 }

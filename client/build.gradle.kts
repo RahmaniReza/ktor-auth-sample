@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-
 kotlin {
     jvm()
     iosArm64()
@@ -23,9 +22,8 @@ kotlin {
 
             implementation(ktorLibs.client.core)
 
-            // Ktor Client Core & Engine (CIO Engine for JVM/Coroutines)
+            // Ktor Client Core
             implementation(ktorLibs.client.core)
-            implementation(ktorLibs.client.cio)
 
             // Content Negotiation & JSON Serialization
             implementation(ktorLibs.client.contentNegotiation)
@@ -42,5 +40,14 @@ kotlin {
 
         }
 
+        jvmMain.dependencies {
+            // CIO goes HERE for JVM
+            implementation(ktorLibs.client.cio)
+        }
+
+        jsMain.dependencies {
+            // JS uses the browser fetch engine
+            implementation(ktorLibs.client.js)
+        }
     }
 }

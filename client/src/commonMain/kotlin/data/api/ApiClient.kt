@@ -8,28 +8,28 @@ import model.AuthRequest
 import model.AuthResponse
 import model.UserProfileResponse
 
-class AuthApiClient(
+class ApiClient(
     private val client: HttpClient,
     private val baseUrl: String = "http://localhost:8080/api/v1"
 ) {
 
-    suspend fun register(request: AuthRequest): AuthResponse {
-        return client.post("$baseUrl/register") {
+    suspend fun register(request: AuthRequest): Result<AuthResponse> = runCatching {
+        client.post("$baseUrl/register") {
             contentType(ContentType.Application.Json)
             setBody(request)
-        }.body()
+        }.body<AuthResponse>()
     }
 
-    suspend fun login(request: AuthRequest): AuthResponse {
-        return client.post("$baseUrl/login") {
+    suspend fun login(request: AuthRequest): Result<AuthResponse> = runCatching {
+        client.post("$baseUrl/login") {
             contentType(ContentType.Application.Json)
             setBody(request)
-        }.body()
+        }.body<AuthResponse>()
     }
 
-    suspend fun getProfile(token: String): UserProfileResponse {
-        return client.get("$baseUrl/me") {
+    suspend fun getProfile(token: String): Result<UserProfileResponse> = runCatching {
+        client.get("$baseUrl/me") {
             header(HttpHeaders.Authorization, "Bearer $token")
-        }.body()
+        }.body<UserProfileResponse>()
     }
 }

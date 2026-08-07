@@ -10,6 +10,8 @@ import org.koin.dsl.module
 val networkModule = module {
     single {
         HttpClient {
+            expectSuccess = true // Throws ResponseException on non-2xx statuses
+
             install(ContentNegotiation) {
                 json(Json {
                     prettyPrint = true

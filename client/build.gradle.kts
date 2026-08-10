@@ -31,6 +31,7 @@ kotlin {
 
             // Logging plugin
             implementation(ktorLibs.client.logging)
+            implementation(libs.logback.classic)
 
             // Kotlinx Coroutines
             implementation(libs.coroutine)

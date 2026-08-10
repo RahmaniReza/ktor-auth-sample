@@ -13,10 +13,10 @@ import model.AuthResponse
 import model.ErrorResponse
 import org.koin.ktor.ext.inject
 
-fun Route.authRoutes() {
-    val userRepository: UserRepository by inject()
-    val jwtService: JwtService by inject()
-
+fun Route.authRoutes(
+    userRepository: UserRepository,
+    jwtService: JwtService
+) {
     route("/api/v1") {
         post("/register") {
             val request = call.receive<AuthRequest>()

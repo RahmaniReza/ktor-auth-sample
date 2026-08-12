@@ -1,7 +1,8 @@
-
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.compose.multiplatform)
 }
 
 kotlin {
@@ -20,30 +21,35 @@ kotlin {
         commonMain.dependencies {
             implementation(project(":shared"))
 
-            implementation(ktorLibs.client.core)
+            // Compose UI
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.material3)
+            implementation(compose.ui)
+            implementation(compose.components.resources)
 
-            // Ktor Client Core
-            implementation(ktorLibs.client.core)
-
-            // Content Negotiation & JSON Serialization
-            implementation(ktorLibs.client.contentNegotiation)
-            implementation(ktorLibs.serialization.kotlinx.json)
+            // Ktor Client
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.contentNegotiation)
+            implementation(libs.ktor.serialization.json)
+            implementation(libs.ktor.client.logging)
 
             // Logging plugin
             implementation(ktorLibs.client.logging)
             implementation(libs.logback.classic)
 
-            // Kotlinx Coroutines
+            // Coroutines & DI
             implementation(libs.coroutine)
-
-            // Koin for Kotlin Multiplatform
             implementation(libs.koin.core)
-
+            implementation(libs.koin.compose)
         }
 
         jvmMain.dependencies {
-            // CIO goes HERE for JVM
-            implementation(ktorLibs.client.cio)
+            // Desktop Engine & JVM Logging
+            implementation(compose.desktop.currentOs)
+            implementation(libs.ktor.client.cio)
+            implementation(libs.logback.classic)
+            implementation(libs.coroutine.swing)
         }
 
         jsMain.dependencies {

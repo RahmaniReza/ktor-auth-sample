@@ -3,8 +3,8 @@ package model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserProfileResponse(
+data class UserMeResponse(
     val userId: Int?,
-    val email: String,
+    val email: String?,
     val passwordHash: String?
 )

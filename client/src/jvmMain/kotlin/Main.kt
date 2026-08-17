@@ -10,22 +10,8 @@ import com.reza.ui.AuthViewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-
 class AppContext : KoinComponent {
     val authRepository: AuthRepository by inject()
-}
-
-class App : KoinComponent {
-    val authRepository: AuthRepository by inject()
-
-    suspend fun run() {
-        val result = authRepository.login("user@example.com", "password123")
-        result.onSuccess {
-            println("Logged in! Token: ${it.token}")
-        }.onFailure {
-            println("Error: ${it.message}")
-        }
-    }
 }
 
 fun main(): Unit = application {

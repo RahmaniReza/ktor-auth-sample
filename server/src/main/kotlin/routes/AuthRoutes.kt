@@ -11,7 +11,7 @@ import io.ktor.server.routing.*
 import model.AuthRequest
 import model.AuthResponse
 import model.ErrorResponse
-import org.koin.ktor.ext.inject
+import model.UserProfileResponse
 
 fun Route.authRoutes(
     userRepository: UserRepository,
@@ -60,10 +60,13 @@ fun Route.authRoutes(
         authenticate("auth-jwt") {
             get("/me") {
                 val principal = call.principal<JWTPrincipal>()
-                val userId = principal?.payload?.getClaim("userId")?.asInt()
-                val email = principal?.payload?.getClaim("email")?.asString()
+                val userId = principal?.payload?.getClaim("userId")?.asInt() ?: return@get call.respond(HttpStatusCode.Unauthorized, "Invalid token claims")
+                val email = principal.payload.getClaim("email")?.asString() ?: return@get call.respond(HttpStatusCode.Unauthorized, "Invalid token claims")
 
-                call.respond(HttpStatusCode.OK, mapOf("userId" to userId, "email" to email))
+                val user = userRepository.findByEmail(email)
+                call.respond(HttpStatusCode.OK,
+                    UserProfileResponse(userId = userId, email = email, passwordHash = user?.passwordHash)
+                )
             }
         }
     }

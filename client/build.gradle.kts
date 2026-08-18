@@ -3,12 +3,20 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose.multiplatform)
+    alias(libs.plugins.android.application)
 }
 
 kotlin {
+    // --- Target Platforms ---
+    @Suppress("DEPRECATION")
+    androidTarget()
     jvm()
+
+    // iOS Targets
+    iosX64()
     iosArm64()
     iosSimulatorArm64()
+
     js {
         browser()
     }
@@ -44,6 +52,18 @@ kotlin {
             implementation(libs.koin.compose)
         }
 
+        // --- Platform-Specific Ktor Engines & UI ---
+
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
+            implementation(libs.koin.android)
+            implementation(libs.androidx.activity.compose)
+        }
+
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin) // Native iOS Ktor engine
+        }
+
         jvmMain.dependencies {
             // Desktop Engine & JVM Logging
             implementation(compose.desktop.currentOs)
@@ -56,5 +76,24 @@ kotlin {
             // JS uses the browser fetch engine
             implementation(ktorLibs.client.js)
         }
+    }
+}
+
+// Android Config Block
+android {
+    namespace = "com.reza.authclient"
+    compileSdk = 35
+
+    defaultConfig {
+        applicationId = "com.reza.authclient"
+        minSdk = 24
+        targetSdk = 35
+        versionCode = 1
+        versionName = "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }

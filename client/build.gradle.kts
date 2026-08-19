@@ -44,7 +44,6 @@ kotlin {
 
             // Logging plugin
             implementation(ktorLibs.client.logging)
-            implementation(libs.logback.classic)
 
             // Coroutines & DI
             implementation(libs.coroutine)
@@ -58,6 +57,7 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
             implementation(libs.koin.android)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.slf4j.android)
         }
 
         iosMain.dependencies {
@@ -79,7 +79,6 @@ kotlin {
     }
 }
 
-// Android Config Block
 android {
     namespace = "com.reza.authclient"
     compileSdk = 35
@@ -95,5 +94,11 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    packaging {
+        resources {
+            excludes += "/META-INF/INDEX.LIST"
+        }
     }
 }

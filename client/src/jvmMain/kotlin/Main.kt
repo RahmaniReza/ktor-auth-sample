@@ -4,12 +4,9 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.reza.di.initKoin
-import com.reza.domain.repository.AuthRepository
 import com.reza.ui.AppContext
 import com.reza.ui.AuthScreen
 import com.reza.ui.AuthViewModel
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 
 fun main(): Unit = application {
     initKoin()

@@ -7,6 +7,8 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
+expect val platformLogger: Logger
+
 val networkModule = module {
     single {
         HttpClient {
@@ -20,6 +22,7 @@ val networkModule = module {
                 })
             }
             install(Logging) {
+                logger = platformLogger
                 level = LogLevel.BODY
             }
         }

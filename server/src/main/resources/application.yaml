@@ -1,8 +1,10 @@
 ktor:
   deployment:
     port: 8080
+    host: 0.0.0.0
   application:
     modules:
+      - com.reza.plugins.MonitoringKt.configureMonitoring
       - com.reza.plugins.KoinKt.configureKoin
       - com.reza.plugins.DatabaseKt.configureDatabase
       - com.reza.plugins.SerializationKt.configureSerialization

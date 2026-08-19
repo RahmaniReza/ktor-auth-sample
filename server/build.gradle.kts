@@ -32,6 +32,7 @@ dependencies {
 
     // --- Logging ---
     implementation(libs.logback.classic)
+    implementation(libs.ktor.server.callLogging)
 
     // --- Dependency Injection ---
     implementation(libs.koin.ktor)

@@ -21,8 +21,17 @@ fun Route.authRoutes(
         post("/register") {
             val request = call.receive<AuthRequest>()
 
+            application.environment.log.info("Register request: $request")
+
             try {
-                // Note: Use BCrypt or Argon2 to hash passwords in production
+                // Check for existing user before database insert
+                val existingUser = userRepository.findByEmail(request.email)
+                if (existingUser != null) {
+                    call.respond(HttpStatusCode.Conflict, ErrorResponse("Email is already registered"))
+                    return@post
+                }
+
+                // Hash password here before passing to repository (e.g., using BCrypt/Argon2)
                 val createdUser = userRepository.createUser(request.email, request.password)
                 val userId = createdUser?.userId
 
@@ -40,6 +49,9 @@ fun Route.authRoutes(
 
         post("/login") {
             val request = call.receive<AuthRequest>()
+
+            application.environment.log.info("Login request: $request")
+
             val user = userRepository.findByEmail(request.email)
 
             if (user == null || user.passwordHash != request.password) {

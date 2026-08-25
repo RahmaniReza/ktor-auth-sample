@@ -5,11 +5,13 @@
         </encoder>
     </appender>
 
-    <root level="INFO">
-        <appender-ref ref="STDOUT" />
-    </root>
+    <!-- Detailed Ktor Route Matching -->
+    <logger name="io.ktor.routing" level="TRACE"/>
 
-    <!-- Ktor framework internal log output -->
-    <logger name="io.ktor" level="INFO" />
-    <logger name="Application" level="DEBUG" />
+    <!-- Exposed SQL Logging -->
+    <logger name="Exposed" level="DEBUG"/>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
 </configuration>

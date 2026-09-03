@@ -13,9 +13,19 @@ kotlin {
     jvm()
 
     // iOS Targets
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "ComposeApp"
+            isStatic = true
+
+            // Export module dependencies if classes from :shared need to be visible to Swift
+            export(project(":shared"))
+        }
+    }
 
     js {
         browser()
@@ -27,7 +37,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(project(":shared"))
+            api(project(":shared"))
 
             // Compose UI
             implementation(compose.runtime)

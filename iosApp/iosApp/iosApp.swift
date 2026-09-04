@@ -11,7 +11,7 @@ import ComposeApp
 @main
 struct iOSApp: App {
     init() {
-        KoinInitializer.shared.init()
+        MainViewControllerKt.doInitKoin()
     }
 
     var body: some Scene {

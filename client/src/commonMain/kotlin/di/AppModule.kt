@@ -3,6 +3,7 @@ package com.reza.di
 import com.reza.data.api.ApiClient
 import com.reza.data.repository.AuthRepositoryImpl
 import com.reza.domain.repository.AuthRepository
+import com.reza.ui.AuthViewModel
 import org.koin.dsl.module
 
 val clientModule = module {

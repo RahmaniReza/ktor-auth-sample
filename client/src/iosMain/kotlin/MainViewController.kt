@@ -6,8 +6,6 @@ fun MainViewController() = ComposeUIViewController {
     App()
 }
 
-object KoinInitializer {
-    fun init() {
-        initKoin()
-    }
+fun doInitKoin() {
+    initKoin()
 }

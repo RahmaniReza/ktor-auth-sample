@@ -63,6 +63,27 @@ kotlin {
 
         // --- Platform-Specific Ktor Engines & UI ---
 
+        val webMain by creating {
+            dependsOn(commonMain.get())
+            dependencies {
+                implementation(compose.ui)
+                implementation(compose.foundation)
+                implementation(compose.material3)
+            }
+        }
+
+        jsMain.get().dependsOn(webMain)
+        wasmJsMain.get().dependsOn(webMain)
+
+        jsMain.dependencies {
+            // JS uses the browser fetch engine
+            implementation(ktorLibs.client.js)
+        }
+
+        wasmJsMain.dependencies {
+            implementation(ktorLibs.client.js)
+        }
+
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
             implementation(libs.koin.android)
@@ -80,11 +101,6 @@ kotlin {
             implementation(libs.ktor.client.cio)
             implementation(libs.logback.classic)
             implementation(libs.coroutine.swing)
-        }
-
-        jsMain.dependencies {
-            // JS uses the browser fetch engine
-            implementation(ktorLibs.client.js)
         }
     }
 }

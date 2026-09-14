@@ -30,6 +30,7 @@ kotlin {
     js {
         browser()
     }
+
     @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
     wasmJs {
         browser()
@@ -92,6 +93,18 @@ kotlin {
         }
 
         iosMain.dependencies {
+            implementation(libs.ktor.client.darwin) // Native iOS Ktor engine
+        }
+
+        iosArm64Main.dependencies {
+            implementation(libs.ktor.client.darwin) // Native iOS Ktor engine
+        }
+
+        iosX64Main.dependencies {
+            implementation(libs.ktor.client.darwin) // Native iOS Ktor engine
+        }
+
+        iosSimulatorArm64Main.dependencies {
             implementation(libs.ktor.client.darwin) // Native iOS Ktor engine
         }
 

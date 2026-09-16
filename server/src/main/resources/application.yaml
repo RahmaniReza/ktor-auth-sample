@@ -5,6 +5,7 @@ ktor:
   application:
     modules:
       - com.reza.plugins.MonitoringKt.configureMonitoring
+      - com.reza.plugins.HttpKt.configureHTTP
       - com.reza.plugins.KoinKt.configureKoin
       - com.reza.plugins.DatabaseKt.configureDatabase
       - com.reza.plugins.SerializationKt.configureSerialization

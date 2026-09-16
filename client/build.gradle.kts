@@ -28,12 +28,15 @@ kotlin {
     }
 
     js {
+        outputModuleName.set("client")
         browser()
+        binaries.executable()
     }
 
-    @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
     wasmJs {
+        outputModuleName.set("client")
         browser()
+        binaries.executable()
     }
 
     sourceSets {
